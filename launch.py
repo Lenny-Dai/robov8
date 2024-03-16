@@ -267,7 +267,7 @@ def detect_worker(shared_buffer, label_dict_tx, lock, ready_ev, sync_ev):
     buffer = np.frombuffer(shared_buffer, dtype=np.float64)
 
     # load model & warm up
-    model =Paru('./weights/yolov8s.pt', './formats/coco.yaml')
+    model =Paru('./weights/3.16.best_s.pt', './robo.yaml')
     print("warming up")
     model.detect_image(np.zeros(shape=(FRAME_H, FRAME_W, 3), dtype=np.uint8), draw_img=False)
 
@@ -282,6 +282,8 @@ def detect_worker(shared_buffer, label_dict_tx, lock, ready_ev, sync_ev):
         image = frame_to_image(frame)
 
         results,detected_imgs = model.detect_image(np.asarray(image))
+        if len(detected_imgs)==0:
+            return
         result=results[0]
         result_img=detected_imgs[0]
 

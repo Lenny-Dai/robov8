@@ -42,15 +42,33 @@ class Paru(object):
         
         results=self.model.track(image_list,conf=0.5,tracker='botsort.yaml') # conf 设置置信度下限
 
+        # desk_index = 17
         detected_imgs=[]
+        # desk_box = []
+        # index = []
+
         for result in results:
-            
-            boxes = result.boxes  # Boxes object for bounding box outputs
-            masks = result.masks  # Masks object for segmentation masks outputs
-            keypoints = result.keypoints  # Keypoints object for pose outputs
-            probs = result.probs  # Probs object for classification outputs
+
+            # for box in result.boxes:
+            #     if box.cls == desk_index:
+            #         desk_box = box
+            #         break
+            #
+            # if desk_box == []:
+            #     continue
+            #
+            # for i, box in result.boxes:
+            #     x = (box.xyxy[0] + box.xyxy[2])/2
+            #     y = (box.xyxy[1] + box.xyxy[3])/2
+            #     if (x < desk_box.xyxy[0] or x > desk_box.xyxy[2] or y > desk_box.xyxy[1] or y < desk_box.xyxy[3]):
+            #         index.append(i)
+            #
+            # boxes = result.boxes  # Boxes object for bounding box outputs
+            # masks = result.masks  # Masks object for segmentation masks outputs
+            # keypoints = result.keypoints  # Keypoints object for pose outputs
+            # probs = result.probs  # Probs object for classification outputs
             # result.show()  # display to screen
-            detected_imgs.append(result.plot())
+            detected_imgs.append(result.index_plot())
 
 
             # print("boxs:{}".format(boxes))
